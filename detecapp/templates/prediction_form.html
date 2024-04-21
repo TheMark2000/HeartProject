@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav class="navbar bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images/heart1.jpg' %}" alt="" style="width: 50px; height: 30px; object-fit: scale-down; font-size: 48px;"></a>
+
+            <a class="navbar-brand">HeartSystem</a>
+            <ul class="nav">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{% url 'bmi_calculator' %}" class="nav-link"><button class="btn btn-success">Know Your BMI</button></a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'signout' %}" class="nav-link"><button class="btn btn-success">Signout</button></a>
+                </li>
+                <div class="">
+                    <li class="input-group">
+                        <h2 class="input-group-text">@{{ request.user }}</h2>
+                    </li>
+                </div>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+    <h2>Heart Disease Prediction</h2>
+
+    <!-- users/templates/prediction_form.html -->
+    <form id='myform' method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.age.id_for_label }}">Age (years):</label>
+            {{ form.age }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.sex.id_for_label }}">Sex:</label>
+            {{ form.sex }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.chest_pain.id_for_label }}">Chest Pain Type:</label>
+            {{ form.chest_pain }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.resting_bp.id_for_label }}">Resting Blood Pressure (mm Hg):</label>
+            {{ form.resting_bp }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.cholesterol.id_for_label }}">Serum Cholesterol (mm/dl):</label>
+            {{ form.cholesterol }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.fasting_bs.id_for_label }}">Fasting Blood Sugar:</label>
+            {{ form.fasting_bs }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.resting_ecg.id_for_label }}">Resting Electrocardiogram Results:</label>
+            {{ form.resting_ecg }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.max_heart_rate.id_for_label }}">Maximum Heart Rate Achieved:</label>
+            {{ form.max_heart_rate }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.exercise_agina.id_for_label }}">Exercise-Induced Angina:</label>
+            {{ form.exercise_agina }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.oldpeak.id_for_label }}">Oldpeak (ST Depression):</label>
+            {{ form.oldpeak }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.st_slope.id_for_label }}">ST Slope:</label>
+            {{ form.st_slope }}
+        </div>
+        <button type="submit" class="btn btn-primary">Predict</button>
+    </form>
+
+
+</body>
+
+</html>
